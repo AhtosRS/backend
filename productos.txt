@@ -1,0 +1,1 @@
+[{"title":"tiza","price":50.2,"thumbnail":"https://www.google.com/search?q=ImagenDeMentira123","id":1},{"title":"Escuadra","price":323.45,"thumbnail":"https://www.google.com/search?q=ImagenDeMentira123","id":2},{"title":"Calculadora","price":234.56,"thumbnail":"https://www.google.com/search?q=ImagenDeMentira123","id":3}]
