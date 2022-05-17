@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div style="width: 100%; display: flex; justify-content: center;">
+            
+                <form style="border: 1px solid black; width: 300px; margin: 5px;">
+                    <div style="margin: 5px;">
+                        <b style="font-size: 25px;">ingrese un producto:</b><br>
+                        <label for="titulo">titulo:</label><br>
+                        <input type="text" id="titulo" name="titulo"><br>
+                        <label for="precio">precio:</label><br>
+                        <input type="text" id="precio" name="precio"><br>
+                        <label for="urlImg">Thumbnail URL:</label><br>
+                        <input type="text" id="urlImg" name="urlImg"><br>
+                        <input type="submit" value="Submit" style="margin: 5px;">
+                    </div>
+                </form>
+            
+        </div>
+    </main>
+
+    <script>
+        
+        let titulo = '';
+        let precio = '';
+        let imgURL = '';
+        let objetoForm = {};
+
+
+        class objetosCreados {
+            constructor(title, price, thumnail) {
+                this.title = title;
+                this.price = parseInt(price);
+                this.thumnail = thumnail;
+            }
+        }
+
+        let form = document.querySelector("form");
+
+        form.onsubmit = function crearProducto(e){
+            e.preventDefault();
+        
+            titulo = document.getElementById("titulo").value
+            precio = document.getElementById("precio").value
+            imgURL = document.getElementById("urlImg").value
+        
+            objetoForm = new objetosCreados(titulo, precio, imgURL);
+
+
+        
+            console.log(objetoForm);
+        
+            fetch('/home', {
+                headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(objetoForm)
+            })
+        }
+    </script>
+
+    <footer style="position: absolute; bottom: 0; width: 100%;">
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>
