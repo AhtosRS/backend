@@ -24,9 +24,6 @@ app.get('/home', function(req, res){
     res.render('pages/index')
 })
 
-app.get('/list', function(req, res){
-    res.render('pages/list')
-})
 
 let memoria = [];
 
@@ -39,7 +36,7 @@ app.post('/home', function(req, res){
     console.log(memoria);
 })
 
-app.get('/home', function(req, res){
+app.get('/list', function(req, res){
     res.render('pages/list', {memoria: memoria})
 })
 

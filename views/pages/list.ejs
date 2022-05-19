@@ -2,6 +2,23 @@
 <html lang="en">
     <head>
         <%- include('../partials/head'); %>
+        <style>
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 80%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+            </style>
     </head>
 <body>
     <header>
@@ -9,24 +26,38 @@
     </header>
 
     <main>
-        
-        <div>
-            <h2>productos agregados:</h2>
-            <ul>
-                <% memoria.forEach(function(producto) {%>
-                    <li>
-                        <p><%=producto.title%></p>
-                    </li>
-                <% });%>
-            </ul>
-            
-        </div>
+        <div style="width: 100%; display: flex; justify-content: center; margin: 30px auto 30px auto;">
 
+            <% if(memoria.length === 0) {%>
+                <div style="border: 1px solid black;">
+                    <h2 style="margin: 20px;">no hay productos por el momento</h2>
+                </div>
+            <% } else {%>
+                <table>
+                    <tr style="margin: 5px;">
+                        <th>productos agregados</th>
+                        <th>precio</th>
+                        <th>miniatura</th>
+                    </tr>
+
+                    <% memoria.forEach(function(producto) {%>
+                    <tr style="margin: 5px;">
+                        <td style="margin-right: 5px;"><%=producto.title%></td>
+                        <td style="margin-right: 5px;"><%=producto.price%></td>
+                        <td>
+                            <img src="<%=producto.thumnail%>" style="height: 30px; width: auto"/>
+                        </td>
+                    </tr>
+                    <% });%>
+                </table>
+            <% } %>
+        </div>
 
 
     </main>
 
-    <footer>
+
+    <footer style="position: absolute; bottom: 0; width: 100%;">
         <%- include('../partials/footer'); %>
     </footer>
 
