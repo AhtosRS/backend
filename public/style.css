@@ -1,0 +1,84 @@
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: beige;
+}
+
+#cuerpo {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(114, 113, 113);
+}
+
+#productos_main{
+    min-height: 300px;
+    min-width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(151, 122, 122);
+    margin: 5px;
+}
+
+#productos_main--form{
+margin: 5px 15px 5px 15px;
+align-items: center;
+}
+
+#productos_main--listado{
+    max-height: 300px;
+    margin: 10px;
+    width: 90%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(177, 164, 164);
+    margin: 5px;
+}
+
+#chat_main{
+    min-height: 200px;
+    min-width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(136, 133, 133);
+    margin: 5px;
+}
+
+#chat_main--messages{
+    height: 170px;
+    width: 90%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(189, 165, 165);
+    margin: 5px;
+}
+
+#chat_main--form{
+margin: 5px;
+}
+
+.email{
+    color: blue;
+}
+.horario {
+    color: brown;
+}
+.mensaje {
+    color: green;
+    font-style: italic;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+    <div id="cuerpo">
+
+        <!-- --------------------form de productos-------------------- -->
+        <div id="productos_main">
+
+            <div id="productos_main--form">
+                <form onsubmit="return addProduct(this)">
+                    <input type="text" id="nombreProducto" placeholder="Nombre"><br>
+                    <input type="number" id="precio" placeholder="Precio"><br>
+                    <input type="text" id="imgURL" placeholder="Foto URL"><br>
+                    <input type="submit" value="Cargar">
+                </form>
+            </div>
+
+            <div id="productos_main--listado">
+                <table id="listado">
+                </table>
+            </div>
+        </div>
+
+        <!-- --------------------CHAT-------------------- -->
+        <div id="chat_main">
+
+            <div id="chat_main--messages">
+                <div id="messages">
+                </div>
+            </div>
+
+            <div id="chat_main--form">
+                <form onsubmit="return addMessage(this)">
+                    <input type="text" id="username" placeholder="Tu emeail">
+                    <input type="text" id="texto" placeholder="deja tu mensaje">
+                    <input type="submit" value="Enviar">
+                </form>
+            </div>
+
+        </div> 
+    </div>
+    </main>
+
+    <footer style="width: 100%;">
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>
