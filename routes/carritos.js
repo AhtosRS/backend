@@ -2,9 +2,6 @@ const { Router } = require('express');
 const carrito = Router();
 const fs = require('fs');
 
-
-
-
 carrito.post('/', (req, res) => {
     console.log("post request recibido");
     res.send(carrosFile.createNewCarro());

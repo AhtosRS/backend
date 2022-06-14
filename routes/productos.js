@@ -1,6 +1,9 @@
+import knex from "knex";
+import { options } from "../DB/configDB.js";
 const { Router } = require('express');
 const productos = Router();
-const fs = require('fs');
+
+//const fs = require('fs');
 
 
 productos.get('/', (req, res) => {
@@ -18,7 +21,6 @@ productos.post('/', permission, (req, res) => {
     let prodRecibido = req.body;
     archivo.save(prodRecibido);
     res.send('producto enviado');
-    
 })
 
 productos.put('/:id', permission, (req, res) => {
@@ -34,7 +36,6 @@ productos.delete('/:id', permission, (req, res) => {
     let id = req.params;
     archivo.deleteById(id.id);
     res.send('producto borrado');
-    
 })
 
 
@@ -55,95 +56,38 @@ function permission(req, res, next) {
 let products = [];
 
 class Contenedor {
-    constructor(data){
-        this.data = data;
+    constructor(options, table){
+        this.knex = knex(options);
+        this.table = table;
     }
 
     theArray(){
-        let file = fs.readFileSync(`./dataBase/productos.json`, 'utf-8');
+        let file = this.knex.from(this.table).select("*");
         return file;
     }
 
     getById(numero){
-        let file = fs.readFileSync(`./dataBase/productos.json`, 'utf-8');
-
         numero = parseInt(numero);
-        let existe = null;
-        let elegido = "";
-        file = JSON.parse(file);
-        file.forEach(element => {
-            if (element.id === numero){
-                existe = true;
-                elegido = file.find( x => x.id === numero);
-                console.log(elegido);
-            }
-        });
-        if (existe === null) {
-            console.log(existe);
-            let noEncontrado = {error: 'producto no encontrado'}
-            return(noEncontrado)
-        } else {
-            return(elegido)
-        }
+        let productByID = this.knex.from(this.table).select("*").where('id', numero);
+        return productByID;
     }
 
     save(objeto) {
-        let id = "id";
-        let file = fs.readFileSync(`./dataBase/productos.json`, 'utf-8');
-
-        if (file.length === 0) {
-            objeto[id] = 1;
-            products.push(objeto)
-            fs.writeFileSync('./dataBase/productos.json', JSON.stringify(products));
-            return("objeto agregado con exitos")
-        } else {
-            file = JSON.parse(file);
-            let index = file.findIndex(object => object.title === objeto.title);
-            if (index === -1){
-                let ultimo = file.length - 1;
-                console.log(file[ultimo].id);
-                objeto[id] = file[ultimo].id + 1;
-                file.push(objeto)
-                fs.writeFileSync('./dataBase/productos.json', JSON.stringify(file));
-                return("objeto agregado con exito")
-            } else {
-                console.log(`${objeto.title} ya existe en el array`);
-                return(`${objeto.title} ya existe en el array`)
-            }
-        }
+        let objetoNew = this.knex.from(this.table).insert(objeto);
+        console.log("objeto agregado con exito")
+        return objetoNew;
     }
 
     modificar(numeroID, objetoNew){
-        let file = fs.readFileSync(`./dataBase/productos.json`, 'utf-8');
-        file = JSON.parse(file);
+        let editado = this.knex.from(this.table).where('id', id).insert(objetoNew);
+        return('objeto borrado con exito')
         
-        let id = "id";
-        
-        numeroID = parseInt(numeroID);
-        let index = file.findIndex(prods => {
-            return prods.id === numeroID;
-        });
-        objetoNew[id] = numeroID;
-        file[index] = objetoNew;
-        fs.writeFileSync('./dataBase/productos.json', JSON.stringify(file));
-        return("producto modificado con exito");
     }
 
     deleteById(numeroID) {
-        let file = fs.readFileSync(`./dataBase/productos.json`, 'utf-8');
-        file = JSON.parse(file);
-       
-        let eliminado = {};
-        numeroID = parseInt(numeroID);
-        file.forEach(element => {
-            if (element.id === numeroID){
-                let elegido = file.findIndex( x => x.id === numeroID);
-                eliminado = file.splice(elegido, 1);
-                console.log(`se elimino: ${JSON.stringify(eliminado)}`);
-            }
-        });
-        fs.writeFileSync('./dataBase/productos.json', JSON.stringify(file));
-        return(`producto eliminado con exito`);
+        let objetoBorrado = this.knex.from(this.table).where('id', id).del();
+
+        return objetoBorrado;
     }  
 }
 
